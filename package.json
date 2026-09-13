@@ -1,0 +1,64 @@
+{
+  "name": "vpndetection-fastify",
+  "version": "1.0.0",
+  "description": "Official Fastify plugin for the VPNDetection API. Detect VPNs, proxies, Tor, hosting and CDN visitors on every request.",
+  "type": "module",
+  "packageManager": "pnpm@11.1.0",
+  "license": "MIT",
+  "homepage": "https://vpndetection.io",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vpndetection-io/sdk-nodejs-fastify.git"
+  },
+  "bugs": {
+    "url": "https://github.com/vpndetection-io/sdk-nodejs-fastify/issues"
+  },
+  "keywords": [
+    "fastify",
+    "fastify-plugin",
+    "middleware",
+    "vpn",
+    "vpn-detection",
+    "proxy-detection",
+    "tor",
+    "ip-intelligence",
+    "fraud-prevention",
+    "bot-detection",
+    "residential-proxy",
+    "hosting"
+  ],
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "engines": {
+    "node": ">=22"
+  },
+  "dependencies": {
+    "fastify-plugin": "^5.0.1",
+    "vpndetection": "^1.8.0"
+  },
+  "peerDependencies": {
+    "fastify": "4.x || 5.x"
+  },
+  "devDependencies": {
+    "@types/node": "^26.2.0",
+    "fastify": "^5.6.1",
+    "typescript": "^5.9.3"
+  },
+  "scripts": {
+    "build": "rm -rf dist && tsc",
+    "test": "pnpm run build && node --test test/*.test.mjs",
+    "prepublishOnly": "pnpm run build"
+  }
+}
