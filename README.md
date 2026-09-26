@@ -1,4 +1,4 @@
-# [<img src="https://s3.vpndetection.io/vpndetection-public/brand/mark.svg" alt="VPNDetection" width="24"/>](https://vpndetection.io/) VPNDetection Fastify Plugin
+# [<img src="https://s3.vpndetection.io/vpndetection-public/brand/mark.svg" alt="VPNDetection" height="28"/>](https://vpndetection.io/) VPNDetection Fastify Plugin
 
 [![npm](https://img.shields.io/npm/v/vpndetection-fastify.svg)](https://www.npmjs.com/package/vpndetection-fastify)
 [![license](https://img.shields.io/npm/l/vpndetection-fastify.svg)](LICENSE)
