@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.5 - 2026-09-27
+
+### Fixes
+
+- Require vpndetection 5.3.1: no doubled slash, impossible timeouts refused, poll cut ([`a33e3be`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/a33e3be2ef0cd05af1018f1d0daf5ea15855cb01))
+
 ## 2.0.4 - 2026-09-27
 
 ### Features
