@@ -21,9 +21,9 @@ You need an API key. Create one in the [console](https://app.vpndetection.io); t
 import Fastify from 'fastify';
 import { vpndetection } from 'vpndetection-fastify';
 
-// trustProxy tells Fastify to believe X-Forwarded-For; see "Where the client
-// address comes from" below.
-const app = Fastify({ trustProxy: true });
+// trustProxy names the proxy whose X-Forwarded-For Fastify believes; see
+// "Where the client address comes from" below.
+const app = Fastify({ trustProxy: '127.0.0.1' });
 
 await app.register(vpndetection, { apiKey: process.env.VPNDETECTION_API_KEY });
 
@@ -77,11 +77,14 @@ This is the setting that decides whether any of the above works, and it is the o
 
 By default the plugin uses `request.ip`, which is Fastify's own accessor. **Fastify resolves `request.ip` to the socket peer unless you built the server with `trustProxy`.** So if your app sits behind nginx, a load balancer, or a CDN and you have not set it, every visitor arrives wearing your proxy's address — which is a datacenter address, so a hosting rule would block all of them.
 
-If you are behind a proxy you control, setting Fastify's own option is the right fix and everything else here follows from it:
+If you are behind a proxy you control, setting Fastify's own option to that proxy's address is the right fix and everything else here follows from it:
 
 ```js
-const app = Fastify({ trustProxy: true });
+const app = Fastify({ trustProxy: '127.0.0.1' });   // a proxy on the same machine
+const app = Fastify({ trustProxy: '10.0.0.0/8' });  // or your load balancer's subnet
 ```
+
+Name your proxies rather than setting `true`. With `true`, `request.ip` is the left-most `X-Forwarded-For` entry, and the visitor writes that one: nginx, AWS's Application Load Balancer and Cloudflare all append to the header rather than replace it, so a visitor on a VPN who sends `X-Forwarded-For: 1.1.1.1` is looked up as `1.1.1.1`. Keep `true` only behind an edge you control that overwrites `X-Forwarded-For`.
 
 For an edge that writes the address into its own header, name the header:
 
@@ -145,7 +148,7 @@ await app.register(vpndetection, {
 
 If you already hold a `VPNDetection` client, pass it as `client` and the plugin will share it rather than building a second cache.
 
-Beyond a few million distinct visitors a day, stop calling the API per request: [download the dataset](https://vpndetection.io/databases) and look addresses up locally instead.
+Beyond a few million distinct visitors a day, stop calling the API per request: [download the dataset](https://vpndetection.io/#databases) and look addresses up locally instead.
 
 ## Absent is not false
 
