@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.7 - 2026-09-29
+
+### Fixes
+
+- Require vpndetection 5.3.3: 26 more reserved ranges are answered locally ([`067b741`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/067b7417dfec0de41c787e0711a30d986b21f0bc))
+
 ## 2.0.6 - 2026-09-28
 
 ### Fixes
