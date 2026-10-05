@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.9 - 2026-10-05
+
+### Features
+
+- Require vpndetection 5.4.0: the authorization code sign-in ([`a0bd15c`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/a0bd15c84a003e8178c022440ae8f8eaa268250a))
+
 ## 2.0.8 - 2026-10-04
 
 ### Fixes
