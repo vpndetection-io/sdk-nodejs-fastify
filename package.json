@@ -46,7 +46,7 @@
     },
     "dependencies": {
         "fastify-plugin": "^5.0.1",
-        "vpndetection": "^5.3.4"
+        "vpndetection": "^5.4.0"
     },
     "peerDependencies": {
         "fastify": "4.x || 5.x"
