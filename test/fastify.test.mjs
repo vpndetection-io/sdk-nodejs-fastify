@@ -8,6 +8,7 @@
 
 import assert from 'node:assert/strict';
 import { after, test } from 'node:test';
+import os from 'node:os';
 
 import Fastify from 'fastify';
 import { VPNDetection } from 'vpndetection';
@@ -307,6 +308,28 @@ test('a registration nested inside one blocks its own routes and leaves the oute
     assert.deepEqual(await checkout.json(), { error: 'access denied' });
     assert.deepEqual(asked, [PUBLIC_IP], 'a shared client asks once per visitor across both');
 });
+
+// The README's same-machine setting. A proxy reaching the app over ::1 is not
+// trusted under '127.0.0.1', so its visitors were answered locally as private.
+const hasIpv6Loopback = Object.values(os.networkInterfaces()).flat()
+    .some((i) => i.internal && i.family === 'IPv6' && i.address === '::1');
+
+for (const host of ['127.0.0.1', '::1']) {
+    test(`trustProxy: 'loopback' believes a proxy on ${host}`, { skip: host === '::1' && !hasIpv6Loopback }, async () => {
+        const { client: client, asked: asked } = stubClient();
+        const app = Fastify({ trustProxy: 'loopback' });
+        await app.register(vpndetection, { client: client });
+        app.get('/', async (request) => ({ ip: request.vpndetection.ip }));
+        await app.listen({ port: 0, host: host });
+        servers.push(app);
+        const origin = host.includes(':') ? `[${host}]` : host;
+        const res = await fetch(`http://${origin}:${app.server.address().port}/`, {
+            headers: { 'x-forwarded-for': `1.1.1.1, ${PUBLIC_IP}` },
+        });
+        assert.deepEqual(await res.json(), { ip: PUBLIC_IP });
+        assert.deepEqual(asked, [PUBLIC_IP]);
+    });
+}
 
 test('a condition that constrains nothing is refused when the plugin registers', async () => {
     const app = Fastify();

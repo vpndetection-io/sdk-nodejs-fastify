@@ -23,7 +23,7 @@ import { vpndetection } from 'vpndetection-fastify';
 
 // trustProxy names the proxy whose X-Forwarded-For Fastify believes; see
 // "Where the client address comes from" below.
-const app = Fastify({ trustProxy: '127.0.0.1' });
+const app = Fastify({ trustProxy: 'loopback' });
 
 await app.register(vpndetection, { apiKey: process.env.VPNDETECTION_API_KEY });
 
@@ -80,7 +80,7 @@ By default the plugin uses `request.ip`, which is Fastify's own accessor. **Fast
 If you are behind a proxy you control, setting Fastify's own option to that proxy's address is the right fix and everything else here follows from it:
 
 ```js
-const app = Fastify({ trustProxy: '127.0.0.1' });   // a proxy on the same machine
+const app = Fastify({ trustProxy: 'loopback' });    // a proxy on the same machine, over 127.0.0.1 or ::1
 const app = Fastify({ trustProxy: '10.0.0.0/8' });  // or your load balancer's subnet
 ```
 
@@ -147,6 +147,22 @@ await app.register(vpndetection, {
 ```
 
 If you already hold a `VPNDetection` client, pass it as `client` and the plugin will share it rather than building a second cache.
+
+A registration nested in a scope that already has one runs after it, and its answer replaces the outer one on the routes it covers. Give both the same client and the second lookup is a cache hit, so this flags every account route and blocks only at checkout, for one request per visitor:
+
+```js
+const client = new VPNDetection({ apiKey: KEY });  // from 'vpndetection'
+
+await app.register(async (account) => {
+    await account.register(vpndetection, { client });
+    account.post('/signup', signupHandler);
+
+    await account.register(async (checkout) => {
+        await checkout.register(vpndetection, { client, blockCondition: { isVpn: true } });
+        checkout.post('/checkout', checkoutHandler);
+    });
+});
+```
 
 Beyond a few million distinct visitors a day, stop calling the API per request: [download the dataset](https://vpndetection.io/#databases) and look addresses up locally instead.
 
