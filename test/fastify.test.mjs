@@ -266,6 +266,48 @@ test('the plugin applies to the instance it is registered on', async () => {
     assert.equal((await call()).body.attached, true);
 });
 
+// A child scope inherits its parent's request decorators, so decorating again
+// in one stopped the app at startup with FST_ERR_DEC_ALREADY_PRESENT. The
+// shape is the natural one for "flag every account route, block at checkout".
+test('a registration nested inside one blocks its own routes and leaves the outer ones flagged', async () => {
+    const asked = [];
+    const client = new VPNDetection({
+        retries: 0,
+        fetch: async (input) => {
+            const url = new URL(typeof input === 'string' ? input : input.url);
+            const ip = decodeURIComponent(url.pathname.slice(1));
+            asked.push(ip);
+            return new Response(JSON.stringify({ ip: ip, is_vpn: true }), {
+                status: 200, headers: { 'content-type': 'application/json' },
+            });
+        },
+    });
+    const app = Fastify();
+    await app.register(async (account) => {
+        await account.register(vpndetection, { client: client, ipSelector: fixedIp });
+        account.get('/signup', async (request) => ({ isVpn: request.vpndetection.result.isVpn }));
+
+        await account.register(async (checkout) => {
+            await checkout.register(vpndetection, {
+                client: client, ipSelector: fixedIp, blockCondition: { isVpn: true },
+            });
+            checkout.get('/checkout', async () => ({ ordered: true }));
+        });
+    });
+    await app.listen({ port: 0, host: '127.0.0.1' });
+    servers.push(app);
+    const base = `http://127.0.0.1:${app.server.address().port}`;
+
+    const signup = await fetch(`${base}/signup`);
+    assert.equal(signup.status, 200, 'the outer registration only flags');
+    assert.deepEqual(await signup.json(), { isVpn: true });
+
+    const checkout = await fetch(`${base}/checkout`);
+    assert.equal(checkout.status, 403, 'the nested registration blocks');
+    assert.deepEqual(await checkout.json(), { error: 'access denied' });
+    assert.deepEqual(asked, [PUBLIC_IP], 'a shared client asks once per visitor across both');
+});
+
 test('a condition that constrains nothing is refused when the plugin registers', async () => {
     const app = Fastify();
     await assert.rejects(

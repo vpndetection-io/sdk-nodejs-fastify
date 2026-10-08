@@ -38,6 +38,8 @@ export interface Options extends MiddlewareOptions<FastifyRequest> {
  * Registered through `fastify-plugin`, so the decorator and the hook apply to
  * the instance you register it on rather than to a child Fastify would
  * otherwise create. Register it inside a scope to confine it to those routes.
+ * A registration nested in a scope that has one runs after it, and its answer
+ * replaces the outer one on the routes it covers.
  */
 export const vpndetection: FastifyPluginAsync<Options> = fp(
     async (fastify: FastifyInstance, options: Options) => {
@@ -46,8 +48,11 @@ export const vpndetection: FastifyPluginAsync<Options> = fp(
 
         // Decorated up front so the property exists on every request object
         // rather than being added per request, which deoptimizes the shape
-        // Fastify builds for them.
-        fastify.decorateRequest('vpndetection', undefined);
+        // Fastify builds for them. Once only: a scope inherits its parent's
+        // decorator, and decorating it again throws.
+        if (!fastify.hasRequestDecorator('vpndetection')) {
+            fastify.decorateRequest('vpndetection', undefined);
+        }
 
         fastify.addHook('onRequest', async (request: FastifyRequest, reply: FastifyReply) => {
             const lookup = await core.evaluate(request);
