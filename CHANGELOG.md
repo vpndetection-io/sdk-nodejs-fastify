@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.10 - 2026-10-08
+
+### Fixes
+
+- Allow a nested registration in a scope that already has one ([`bb276f1`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/bb276f1d4786c6870239fa6dd519a9a9287e4b76))
+
 ## 2.0.9 - 2026-10-05
 
 ### Features
