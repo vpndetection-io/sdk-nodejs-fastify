@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.12 - 2026-10-12
+
+### Fixes
+
+- Require vpndetection 5.5.2: an unreadable answer is retried, a blank key sends none ([`99b782c`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/99b782cc93456aadeccd07044e09ca0822a405d3))
+
 ## 2.0.11 - 2026-10-10
 
 ### Fixes
