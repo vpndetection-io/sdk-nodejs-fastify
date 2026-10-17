@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.14 - 2026-10-17
+
+### Features
+
+- Require vpndetection 5.6.0: OauthMetadata carries registration_endpoint ([`849f1fe`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/849f1fe91bf4780a028669ba9fb1b4c5783c6e0b))
+
 ## 2.0.13 - 2026-10-16
 
 ### Fixes
