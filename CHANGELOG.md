@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.15 - 2026-10-18
+
+### Fixes
+
+- Require vpndetection 5.7.0: isPubproxy and the pubproxy detail ([`f1ba720`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/f1ba720300b6becaa274a4a34572115e4e8117dd))
+
 ## 2.0.14 - 2026-10-17
 
 ### Features
