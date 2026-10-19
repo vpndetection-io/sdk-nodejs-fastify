@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.16 - 2026-10-19
+
+### Fixes
+
+- Require vpndetection 5.8.0: num_ports and num_proxies in the pubproxy detail ([`a1f55ea`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/a1f55eabb1d04b4d2a3576a6af9747fd3f1c047d))
+
 ## 2.0.15 - 2026-10-18
 
 ### Fixes
