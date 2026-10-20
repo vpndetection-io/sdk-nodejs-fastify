@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.19 - 2026-10-20
+
+### Features
+
+- Require vpndetection 5.10.0: lookup results carry location and asn ([`246e720`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/246e72076808e2333704c5b9362ae65846d0d472))
+
 ## 2.0.18 - 2026-10-20
 
 ### Fixes
