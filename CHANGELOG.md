@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.18 - 2026-10-20
+
+### Fixes
+
+- Require vpndetection 5.9.0: oauth.register, and OAuth answers that are not JSON ([`774f07a`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/774f07a02aa6c763e64eb3ec7f783f4da424cb78))
+
 ## 2.0.17 - 2026-10-20
 
 ### Fixes
