@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.20 - 2026-10-23
+
+### Fixes
+
+- Require vpndetection 5.10.1, which types every answer member ([`f02e0f5`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/f02e0f50ae6c0873546994d50f1feac44b23a19b))
+
 ## 2.0.19 - 2026-10-20
 
 ### Features
