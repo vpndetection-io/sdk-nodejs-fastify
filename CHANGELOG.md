@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.24 - 2026-11-07
+
+### Features
+
+- Require vpndetection 5.11.0: downloads take the build a webhook names ([`db82f86`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/db82f86a613c68ad226c57addafdac5df610978c))
+
 ## 2.0.23 - 2026-11-07
 
 ### Fixes
