@@ -15,7 +15,7 @@ npm install vpndetection-fastify
 
 Requires Node.js 22 or newer and Fastify 4 or 5. TypeScript types are included.
 
-You need an API key. Create one in the [console](https://app.vpndetection.io); without one the allowance is counted per source address, and a server is a single source address, so a key is what makes this usable in production rather than optional.
+You need an API key. Create one in the [console](https://app.vpndetection.io); without one, lookups are limited to 60 a minute from each source address, and a server is a single source address, so a key is what makes this usable in production rather than optional.
 
 ```js
 import Fastify from 'fastify';
@@ -168,7 +168,7 @@ Beyond a few million distinct visitors a day, stop calling the API per request: 
 
 ## Absent is not false
 
-Without a key only `ip` and `isVpn` come back, and a free key adds Tor, relay, `location` and `asn`. A field your plan does not include is `undefined`, which means "not in your plan" rather than "checked, and no".
+Without a key a lookup leaves out `isHosting`, `isCdn` and the four proxy flags, and a free key leaves out `vpn` and the detail behind each flag. A field your plan does not include is `undefined`, which means "not in your plan" rather than "checked, and no".
 
 ```js
 request.vpndetection.result.isHosting ?? false   // when you only want the flag
