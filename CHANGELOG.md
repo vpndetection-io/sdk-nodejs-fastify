@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.28 - 2026-11-11
+
+### Features
+
+- Require vpndetection 5.13.0: trial_expired on a trial key's answers ([`433f95d`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/433f95d4df6dc0a3a3e52649d89b49828d3b66cf))
+
 ## 2.0.27 - 2026-11-11
 
 ### Fixes
