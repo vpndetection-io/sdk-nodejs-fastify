@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.26 - 2026-11-11
+
+### Fixes
+
+- Require vpndetection 5.12.1: plainer words on lookups without a key ([`586221d`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/586221dfb478eba3302e965511641fb6d3c3bd09))
+
 ## 2.0.25 - 2026-11-11
 
 ### Features
