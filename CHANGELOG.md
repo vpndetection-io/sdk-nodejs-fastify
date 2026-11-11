@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.27 - 2026-11-11
+
+### Fixes
+
+- Require vpndetection 5.12.2: the Unlimited tier and its terms ([`b28b8f1`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/b28b8f1fdaef23c44138c09c9bebbdc300d8f719))
+
 ## 2.0.26 - 2026-11-11
 
 ### Fixes
