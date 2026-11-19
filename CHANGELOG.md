@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.34 - 2026-11-19
+
+### Fixes
+
+- Require vpndetection 5.16.1: re-pinned to spec 2026.11.18 ([`03c53ff`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/03c53ffa4ef116d94505a4d890a563120b4ee1f0))
+
 ## 2.0.33 - 2026-11-18
 
 ### Fixes
