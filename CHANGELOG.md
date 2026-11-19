@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.35 - 2026-11-19
+
+### Fixes
+
+- Require vpndetection 5.16.2: a reduced answer is cached a minute at most ([`ded05a3`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/ded05a3a4a67112db2b12e35842645a3358e9924))
+
 ## 2.0.34 - 2026-11-19
 
 ### Fixes
