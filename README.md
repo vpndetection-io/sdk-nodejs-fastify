@@ -3,9 +3,9 @@
 [![npm](https://img.shields.io/npm/v/vpndetection-fastify.svg)](https://www.npmjs.com/package/vpndetection-fastify)
 [![license](https://img.shields.io/npm/l/vpndetection-fastify.svg)](LICENSE)
 
-The official [Fastify](https://fastify.dev) plugin for the [VPNDetection](https://vpndetection.io) API.
+The official [Fastify](https://fastify.dev) plugin for the [VPNDetection](https://vpndetection.io) API: it checks each visitor's IP for VPN, Tor and proxy use, and can block them with a 403.
 
-It classifies the visitor behind each request — VPN, residential proxy, Tor, hosting, CDN, relay — and hands the answer to your handlers. Blocking is opt-in.
+It classifies the visitor behind each request: VPN, residential proxy, Tor, hosting, CDN, relay. It hands the answer to your handlers. Blocking is opt-in.
 
 ## Getting Started
 
@@ -15,7 +15,7 @@ npm install vpndetection-fastify
 
 Requires Node.js 22 or newer and Fastify 4 or 5. TypeScript types are included.
 
-You need an API key on a paid plan. Create one in the [console](https://app.vpndetection.io); without one a lookup is on Unlimited, the free plan, and leaves out the hosting, CDN and proxy flags, so a paid plan is what makes this usable in production rather than optional. A free account tries every field.
+No API key needed to start. Without one, a lookup is on Unlimited, the free plan, which answers VPN, Tor and relay detection with no daily or monthly cap. A paid plan's key adds the hosting, CDN and proxy flags and the provider behind each flag: create one in the [console](https://app.vpndetection.io). A free account tries every field.
 
 ```js
 import Fastify from 'fastify';
@@ -35,7 +35,7 @@ app.get('/', async (request) => {
 await app.listen({ port: 3000 });
 ```
 
-By default nothing is blocked. Every request gets a `request.vpndetection` and your own code decides what that means — which is usually what you want, because whether a VPN visitor is a problem depends entirely on what they are doing.
+By default nothing is blocked. Every request gets a `request.vpndetection` and your own code decides what to do with it, since whether a VPN visitor is a problem depends on what they're doing.
 
 ## Blocking
 
@@ -73,7 +73,7 @@ await app.register(vpndetection, {
 
 ## Where the client address comes from
 
-This is the setting that decides whether any of the above works, and it is the one thing only you can get right.
+Get this setting right, or none of the above works.
 
 By default the plugin uses `request.ip`, which is Fastify's own accessor. **Fastify resolves `request.ip` to the socket peer unless you built the server with `trustProxy`.** So if your app sits behind nginx, a load balancer, or a CDN and you have not set it, every visitor arrives wearing your proxy's address, and that is the address that gets checked: VPN visitors pass unnoticed, and if it is a hosting address, a hosting rule blocks everyone. nginx on the same machine is `127.0.0.1` and a load balancer usually has a private address, which the plugin answers locally without a lookup, flagging nobody and logging a warning.
 
@@ -97,7 +97,7 @@ await app.register(vpndetection, {
 });
 ```
 
-`xffIpSelector()` reads `X-Forwarded-For` directly. Be aware that the left-most entry is whatever the caller sent, because proxies append to that header — it is only trustworthy when an edge you control overwrites it. If you know how many proxies sit in front, count from the right instead: `xffIpSelector({ depth: 1 })` is the address your nearest proxy saw.
+`xffIpSelector()` reads `X-Forwarded-For` directly. The left-most entry is whatever the caller sent, since proxies append to that header, so trust it only when an edge you control overwrites it. If you know how many proxies sit in front, count from the right instead: `xffIpSelector({ depth: 1 })` is the address your nearest proxy saw.
 
 Anything else, pass your own function. It receives the Fastify request and returns an address:
 
@@ -125,7 +125,7 @@ Pass `failClosed: true` to block instead. Private addresses are answered locally
 
 ## Cost and latency
 
-Answers are cached per plugin registration for an hour, so a returning visitor costs nothing, and private addresses never leave the process. A cache miss is one request to our API, bounded at 2500 ms by default and not retried — on a request path, failing open quickly beats holding a visitor while we try again. Both are adjustable, along with the cache itself:
+Answers are cached per plugin registration for an hour, so a returning visitor costs nothing, and private addresses never leave the process. A cache miss is one request to our API, bounded at 2500 ms by default and not retried: on a request path, failing open fast beats holding a visitor while we retry. Both are adjustable, along with the cache itself:
 
 ```js
 await app.register(vpndetection, {
