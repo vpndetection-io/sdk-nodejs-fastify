@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.36 - 2026-11-20
+
+### Features
+
+- Require vpndetection 5.17.0: a lookup reads the network, service, company and abuse members ([`ab1f9e5`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/ab1f9e544643859e6e7a85823dee035004842a2d))
+
 ## 2.0.35 - 2026-11-19
 
 ### Fixes
