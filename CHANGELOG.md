@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.37 - 2026-11-22
+
+### Fixes
+
+- Require vpndetection 5.17.1: a cache TTL or size that is not a whole number from 1 is refused ([`432f15b`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/432f15b7f1fed6065184c19c688ea07665318bb6))
+
 ## 2.0.36 - 2026-11-20
 
 ### Features
