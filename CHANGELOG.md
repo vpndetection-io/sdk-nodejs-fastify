@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.38 - 2026-11-22
+
+### Features
+
+- Require vpndetection 5.18.0: isBot and bot, and an AS without its country or RPKI status is refused ([`b4914da`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/b4914da16694ce06a07024f3f61a6b28e26c0817))
+
 ## 2.0.37 - 2026-11-22
 
 ### Fixes
