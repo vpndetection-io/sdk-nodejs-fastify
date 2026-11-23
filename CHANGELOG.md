@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.40 - 2026-11-23
+
+### Fixes
+
+- Require vpndetection 5.19.1: a timeout or retry count no lookup can run is refused when the middleware is built ([`18ce9cc`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/18ce9ccdfa91ec19dd5e3162821623cd335ce153))
+
 ## 2.0.39 - 2026-11-23
 
 ### Features
