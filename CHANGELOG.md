@@ -2,6 +2,12 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.0.41 - 2026-11-23
+
+### Fixes
+
+- Require vpndetection 5.19.2: a per-call timeout on a dataset download is refused rather than ignored ([`cf79d3a`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/cf79d3ad59e25fd6c8fbcf957a001c6faae2fac3))
+
 ## 2.0.40 - 2026-11-23
 
 ### Fixes
