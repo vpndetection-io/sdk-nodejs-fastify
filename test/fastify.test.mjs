@@ -360,6 +360,19 @@ test('a condition that constrains nothing is refused when the plugin registers',
     await app.close();
 });
 
+// Through vpndetection 5.19.0 each was taken, and every request then passed as a failed lookup.
+test('a timeout or retry count no lookup can run is refused when the plugin registers', async () => {
+    for (const options of [{ timeoutMs: 0 }, { timeoutMs: NaN }, { retries: -1 }, { retries: 1.5 }]) {
+        const app = Fastify();
+        await assert.rejects(
+            () => app.register(vpndetection, { blockCondition: { isVpn: true }, ...options }).ready(),
+            (err) => err.kind === 'bad_request',
+            JSON.stringify(options),
+        );
+        await app.close();
+    }
+});
+
 // Built exactly as the README builds it: the README's `trustProxy`, and an API key
 // from the environment and nothing else. Every other test passes a client, so none
 // could see the plugin fail to register, or send no key, the README's way.
