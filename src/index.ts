@@ -43,7 +43,7 @@ export interface Options extends MiddlewareOptions<FastifyRequest> {
  */
 export const vpndetection: FastifyPluginAsync<Options> = fp(
     async (fastify: FastifyInstance, options: Options) => {
-        const core = createCore<FastifyRequest>(options, defaultIpSelector);
+        const core = createCore<FastifyRequest>(options, defaultIpSelector, selectors.userAgentSelector);
         const onBlocked = options.onBlocked ?? refuse;
 
         // Decorated up front so the property exists on every request object
