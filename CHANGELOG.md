@@ -2,6 +2,13 @@
 
 What each release changed for you, newest first. Each line is a commit's summary, linked to its full description and diff. Releases before 2.0.3 are described by their release commits.
 
+## 2.1.0 - 2026-11-24
+
+### Features
+
+- Let a verified crawler through with allowBots ([`d7f16c7`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/d7f16c7662520481c7f282dab5a7a3a4b60a9546))
+- Require vpndetection 5.20.0: a user agent sent with a lookup, and twelve first_seen and last_seen members read as dates ([`541b90c`](https://github.com/vpndetection-io/sdk-nodejs-fastify/commit/541b90c0a638c0cc1439c938ca7ff507021ffed2))
+
 ## 2.0.41 - 2026-11-23
 
 ### Fixes
